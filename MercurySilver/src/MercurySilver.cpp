@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "MercurySilver.h"
 
@@ -14,7 +13,8 @@ MercurySilver* mercurySilver = nullptr;
 
 MercurySilver* getMercurySilver() {
     cout << __PRETTY_FUNCTION__ << endl;
-    if (mercurySilver)
+    if (!mercurySilver)
         mercurySilver = new MercurySilver;
+
     return mercurySilver;
 }

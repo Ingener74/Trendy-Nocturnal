@@ -28,19 +28,13 @@ int main(int argc, char **argv) {
         cout << "getMercurySilver " << (getMercurySilver ? "success" : "fail") << endl;
 
         ffi_cif cif;
-        ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, 0, &ffi_type_pointer, nullptr);
-        if (status == FFI_OK) {
+        if (ffi_prep_cif(&cif, FFI_DEFAULT_ABI, 0, &ffi_type_pointer, nullptr) != FFI_OK)
+            throw runtime_error("can't prepare cif");
 
-            MercurySilver* ms = nullptr;
-            ffi_call(&cif, FFI_FN(getMercurySilver), &ms, nullptr);
+        MercurySilver* ms = nullptr;
+        ffi_call(&cif, FFI_FN(getMercurySilver), &ms, nullptr);
 
-            cout << "MercurySilver pointer " << hex << ms << endl;
-
-        } else {
-            cerr << "can't prepare cif" << endl;
-        }
-
-//		ffi_prep_cif(&cif, )
+        cout << "MercurySilver pointer " << hex << ms << endl;
 
         return 0;
     } catch (const exception& e) {
